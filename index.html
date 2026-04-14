@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#070506" />
+  <meta
+    name="description"
+    content="Desenvolvedor web de luxo criando ambientes digitais imersivos com precisão, atmosfera e identidade."
+  />
+  <title>Gusthaf Versailles</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root{
+      --bg:#070506;
+      --text:#F3E8D8;
+      --text-soft:#D6C3A5;
+      --text-muted:#A18D74;
+      --gold:#C2A06B;
+      --gold-soft:#8D6B46;
+      --line:rgba(194,160,107,.16);
+      --radius:20px;
+      --nav-bg:rgba(10,8,9,.72);
+      --nav-border:rgba(194,160,107,.12);
+      --nav-offset:120px;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html,body{
+      height:100%;
+      overflow:hidden;
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Montserrat',sans-serif;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+
+    body{
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at top center, rgba(194,160,107,.05), transparent 34%),
+        linear-gradient(180deg, #080506 0%, #060405 100%);
+    }
+
+    img{
+      display:block;
+      max-width:100%;
+    }
+
+    a{
+      color:inherit;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .navbar{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      z-index:999;
+      display:flex;
+      justify-content:center;
+      padding:
+        calc(18px + env(safe-area-inset-top, 0px))
+        clamp(12px, 2vw, 24px)
+        16px;
+      border-bottom:1px solid var(--nav-border);
+      background:linear-gradient(to bottom, rgba(10,7,8,.92), rgba(8,6,7,.78));
+      box-shadow:0 8px 22px rgba(0,0,0,.16);
+      transform:translateZ(0);
+      will-change:transform;
+    }
+
+
+    .nav-shell{
+  width:min(1180px, 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(4px, .8vw, 10px);
+  flex-wrap:nowrap;
+  min-width:0;
+}
+
+    .lang-toggle{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:46px;
+      padding:0 16px;
+      border:1px solid rgba(194,160,107,.16);
+      border-radius:999px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,0) 100%),
+        rgba(14,10,11,.62);
+      color:#E8D8BE;
+      font-family:'Cinzel',serif;
+      font-size:11px;
+      letter-spacing:2.2px;
+      cursor:pointer;
+      transition:transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.04),
+        0 10px 24px rgba(0,0,0,.16);
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .lang-toggle:hover{
+      transform:translateY(-1px);
+      border-color:rgba(232,218,188,.32);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,.01) 100%),
+        rgba(18,12,14,.74);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.05),
+        0 14px 28px rgba(0,0,0,.18);
+    }
+
+    .lang-toggle:focus-visible{
+      outline:none;
+      border-color:#E8DABC;
+      box-shadow:
+        0 0 0 3px rgba(194,160,107,.12),
+        inset 0 1px 0 rgba(255,255,255,.05),
+        0 14px 28px rgba(0,0,0,.18);
+    }
+
+    .lang-toggle__option{
+      position:relative;
+      line-height:1;
+      white-space:nowrap;
+      color:#7f6240;
+      transition:color .24s ease, text-shadow .24s ease, opacity .24s ease, transform .24s ease;
+      opacity:.72;
+    }
+
+    .lang-toggle[data-lang="pt"] .lang-toggle__option--pt,
+    .lang-toggle[data-lang="en"] .lang-toggle__option--en{
+      color:#E4C28F;
+      opacity:1;
+      text-shadow:0 0 12px rgba(194,160,107,.24);
+      transform:translateY(-.5px);
+    }
+
+    .lang-toggle[data-lang="pt"] .lang-toggle__option--en,
+    .lang-toggle[data-lang="en"] .lang-toggle__option--pt{
+      color:#8A6A45;
+      opacity:.62;
+      text-shadow:none;
+    }
+
+    .lang-toggle__divider{
+      width:1px;
+      height:14px;
+      background:rgba(194,160,107,.24);
+    }
+
+    .nav-links{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:clamp(2px, .45vw, 8px);
+  list-style:none;
+  flex:1 1 auto;
+  flex-wrap:nowrap;
+  min-width:0;
+  padding:clamp(3px, .45vw, 6px) clamp(4px, .8vw, 10px);
+  border:1px solid rgba(194,160,107,.08);
+  border-radius:999px;
+  background:rgba(14,10,11,.58);
+  overflow:visible;
+}
+
+    .nav-links li{
+  display:flex;
+  flex:1 1 auto;
+  min-width:0;
+  contain:layout paint style;
+}
+
+    .nav-links a{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-width:0;
+  min-height:38px;
+  padding:0 clamp(4px, .6vw, 10px);
+  text-decoration:none;
+  font-family:'Cinzel',serif;
+  font-size:clamp(11px, 1.1vw, 15px);
+  letter-spacing:clamp(.5px, .15vw, 2.2px);
+  font-weight:600;
+  color:#8f6e48;
+  transition:color .24s ease, opacity .24s ease;
+  transform:translateZ(0);
+  -webkit-font-smoothing:antialiased;
+  white-space:nowrap;
+}
+
+    .nav-links a span{
+  display:block;
+  white-space:nowrap;
+  transition:transform .42s cubic-bezier(.22,.61,.36,1), text-shadow .3s ease, opacity .24s ease;
+  will-change:transform;
+  transform-origin:center center;
+}
+
+    .nav-links a:hover{
+      color:#c7a16f;
+    }
+
+    .nav-links a:hover span{
+      transform:scale(1.08) translateZ(0);
+      text-shadow:0 0 12px rgba(194,160,107,.14);
+    }
+
+    .nav-links a::after{
+      content:"";
+      position:absolute;
+      left:14px;
+      right:14px;
+      bottom:4px;
+      height:1px;
+      transform:scaleX(0);
+      transform-origin:center;
+      background:linear-gradient(to right, rgba(237,223,196,.12), rgba(194,160,107,.95), rgba(237,223,196,.12));
+      transition:transform .28s cubic-bezier(.22,.61,.36,1);
+      will-change:transform;
+    }
+
+    .nav-links a.active{
+      color:#e4c28f;
+    }
+
+    .nav-links a.active span{
+      transform:scale(1.16) translateZ(0);
+      text-shadow:0 0 16px rgba(194,160,107,.18);
+    }
+
+    .nav-links a.active::after{
+      transform:scaleX(1);
+    }
+
+    section{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100dvh;
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      overflow:hidden;
+      transition:opacity .42s ease, visibility 0s linear .42s;
+      backface-visibility:hidden;
+      -webkit-backface-visibility:hidden;
+      transform:translateZ(0);
+    }
+
+    section::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at center, rgba(255,255,255,.03), transparent 56%);
+      opacity:0;
+      transform:scale(1.035);
+      transition:opacity .52s ease, transform .72s cubic-bezier(.22,.61,.36,1);
+      will-change:transform, opacity;
+      pointer-events:none;
+      z-index:1;
+    }
+
+    section.active{
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+      z-index:2;
+      transition:opacity .42s ease;
+    }
+
+    section.active::after{
+      opacity:.32;
+      transform:scale(1);
+    }
+
+    .section-scroll{
+      position:relative;
+      height:100%;
+      width:calc(100% + 20px);
+      margin-right:-20px;
+      overflow-y:auto;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:calc(var(--nav-offset) + 28px) max(20px, env(safe-area-inset-right, 0px) + 20px) 120px max(20px, env(safe-area-inset-left, 0px) + 20px);
+      overscroll-behavior:contain;
+      scrollbar-width:none;
+      -ms-overflow-style:none;
+      touch-action:pan-y;
+      -webkit-overflow-scrolling:touch;
+    }
+
+    .section-scroll::-webkit-scrollbar{
+      width:0;
+      height:0;
+      display:none;
+    }
+
+    .section-frame{
+      position:relative;
+      width:min(1180px, 100%);
+      z-index:2;
+    }
+
+    .scroll-ui{
+      position:absolute;
+      top:118px;
+      right:10px;
+      bottom:26px;
+      width:2px;
+      border-radius:999px;
+      background:rgba(194,160,107,.12);
+      overflow:hidden;
+      pointer-events:none;
+      opacity:.76;
+      z-index:6;
+      box-shadow:0 0 10px rgba(194,160,107,.06);
+    }
+
+    .scroll-ui.is-hidden{
+      opacity:0 !important;
+    }
+
+    .scroll-thumb{
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      min-height:34px;
+      border-radius:999px;
+      background:linear-gradient(
+        to bottom,
+        rgba(239,226,200,.96),
+        rgba(194,160,107,.42)
+      );
+      box-shadow:0 0 10px rgba(194,160,107,.20);
+    }
+
+    .hero,
+    .about,
+    .services,
+    .works{
+      background-size:cover;
+      background-position:center;
+      isolation:isolate;
+    }
+
+    .hero::before,
+    .about::before,
+    .services::before,
+    .works::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(8,5,6,.46) 0%, rgba(12,8,9,.28) 30%, rgba(7,5,6,.72) 100%),
+        radial-gradient(circle at top center, rgba(194,160,107,.08), transparent 42%);
+      z-index:0;
+      pointer-events:none;
+    }
+
+    .hero{
+      background:url('hero.jpg') no-repeat center/cover;
+    }
+
+    .about{ background-image:url('about-bg.jpg'); }
+    .services{ background-image:url('services-bg.jpg'); }
+    .works{ background-image:url('works-bg.jpg'); }
+
+    .hero-shell{
+      position:relative;
+      z-index:2;
+      width:min(1100px, calc(100% - 40px));
+      min-height:100dvh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      overflow:hidden;
+    }
+
+    .hero-content{
+      max-width:980px;
+      opacity:0;
+      transform:scale(.965) translateY(34px) translateZ(0);
+      animation:heroReveal 1.15s cubic-bezier(.18,.84,.28,1) forwards .14s;
+      will-change:transform, opacity;
+    }
+
+    .hero-content > *{
+      opacity:0;
+      transform:translateY(16px) translateZ(0);
+      animation:heroItemReveal .78s cubic-bezier(.22,.61,.36,1) forwards;
+      will-change:transform, opacity;
+    }
+
+    .hero-content .title{ animation-delay:.72s; }
+    .hero-content .subtitle{ animation-delay:.9s; }
+
+    @keyframes heroReveal{
+      0%{
+        opacity:0;
+        transform:scale(.965) translateY(34px) translateZ(0);
+      }
+      65%{
+        opacity:1;
+      }
+      100%{
+        opacity:1;
+        transform:scale(1) translateY(0) translateZ(0);
+      }
+    }
+
+    @keyframes heroItemReveal{
+      0%{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .title{
+      font-family:'Cinzel',serif;
+      font-weight:600;
+      font-size:clamp(42px, 7vw, 96px);
+      line-height:1.02;
+      letter-spacing:1px;
+      color:#674C2B;
+      text-shadow:
+        0 0 20px rgba(0,0,0,.24),
+        0 0 12px rgba(194,160,107,.10);
+    }
+
+    .subtitle{
+      margin-top:16px;
+      font-family:'Cinzel',serif;
+      font-weight:600;
+      font-size:clamp(11px, 1.4vw, 14px);
+      letter-spacing:11px;
+      color:#5A4326;
+      text-transform:uppercase;
+    }
+
+    .section-reveal{
+      opacity:0;
+      transform:translateY(12px) translateZ(0);
+      transition:opacity .32s ease, transform .42s cubic-bezier(.22,.61,.36,1);
+      will-change:transform, opacity;
+    }
+
+    section.active .section-reveal{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    section.active .delay-1{ transition-delay:.03s; }
+    section.active .delay-2{ transition-delay:.07s; }
+    section.active .delay-3{ transition-delay:.11s; }
+    section.active .delay-4{ transition-delay:.15s; }
+
+    .section-kicker{
+      display:block;
+      margin-bottom:18px;
+      font-family:'Cinzel',serif;
+      font-size:12px;
+      letter-spacing:5px;
+      color:#D7BA8D;
+      text-transform:uppercase;
+    }
+
+    .section-heading{
+      font-family:'Cinzel',serif;
+      font-size:clamp(30px, 4vw, 54px);
+      line-height:1.15;
+      color:#FEE6BE;
+    }
+
+    .section-divider{
+      width:130px;
+      height:1px;
+      margin:24px 0;
+      background:linear-gradient(to right, rgba(230,211,180,.96), rgba(194,160,107,.14));
+    }
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .about-panel{
+      padding:48px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,0) 18%),
+        linear-gradient(to bottom, rgba(34,19,22,.90), rgba(12,9,10,.82));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.04),
+        0 20px 50px rgba(0,0,0,.22);
+    }
+
+    .about-copy{
+      color:var(--text-soft);
+      font-size:15px;
+      line-height:1.95;
+    }
+
+    .about-copy + .about-copy{
+      margin-top:18px;
+    }
+
+    .about-values{
+      display:grid;
+      gap:14px;
+    }
+
+    .value-item{
+      padding:18px;
+      border:1px solid rgba(194,160,107,.14);
+      border-radius:16px;
+      background:
+        linear-gradient(180deg, rgba(88,47,44,.20), rgba(15,10,12,.28));
+      color:#E3D0AF;
+      font-family:'Cinzel',serif;
+      font-size:14px;
+      letter-spacing:1.5px;
+      text-align:center;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.02);
+    }
+
+    .about-signature{
+      margin-top:26px;
+      font-family:'Cinzel',serif;
+      letter-spacing:4px;
+      font-size:20px;
+      color:#E8D8BE;
+    }
+
+    .services-stack{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:22px;
+    }
+
+    .service-card{
+      min-height:100%;
+      padding:40px 36px;
+      border-radius:22px;
+      border:1px solid rgba(194,160,107,.16);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,0) 20%),
+        linear-gradient(to bottom, rgba(33,18,21,.92), rgba(11,8,9,.84));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.04),
+        0 18px 40px rgba(0,0,0,.20);
+    }
+
+    .service-card h3{
+      font-family:'Cinzel',serif;
+      font-size:24px;
+      line-height:1.25;
+      letter-spacing:1.4px;
+      color:#FEE6BE;
+    }
+
+    .service-tags{
+      margin-top:14px;
+      color:#C1A277;
+      font-family:'Cinzel',serif;
+      font-size:11px;
+      letter-spacing:2px;
+      line-height:1.8;
+      text-transform:uppercase;
+    }
+
+    .service-main{
+      margin-top:18px;
+      color:#E7DBC5;
+      font-size:14px;
+      line-height:1.9;
+    }
+
+    .service-sub{
+      margin-top:12px;
+      color:var(--text-muted);
+      font-size:13px;
+      line-height:1.85;
+    }
+
+    .scope-block{
+      margin-top:38px;
+      padding:30px 28px;
+      border-radius:18px;
+      border:1px solid rgba(194,160,107,.15);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,0) 18%),
+        linear-gradient(to bottom, rgba(35,20,23,.90), rgba(12,9,10,.82));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.04),
+        0 18px 36px rgba(0,0,0,.18);
+    }
+
+    .project-scope{
+      font-family:'Cinzel',serif;
+      letter-spacing:3px;
+      font-size:13px;
+      color:#DFC79E;
+      text-align:center;
+    }
+
+    .scope-list{
+      margin-top:18px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      justify-content:center;
+    }
+
+    .scope-list span{
+      padding:10px 14px;
+      border:1px solid rgba(194,160,107,.20);
+      border-radius:999px;
+      color:#DAC6A5;
+      font-size:12px;
+      line-height:1;
+      background:
+        linear-gradient(180deg, rgba(96,52,48,.16), rgba(18,11,13,.22));
+    }
+
+    .works-list{
+      display:grid;
+      gap:26px;
+      width:min(980px, 100%);
+    }
+
+    .work-card{
+      display:grid;
+      grid-template-columns:280px 1fr;
+      gap:28px;
+      align-items:center;
+      padding:20px;
+      border-radius:24px;
+      border:1px solid rgba(194,160,107,.16);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,0) 18%),
+        linear-gradient(to bottom, rgba(31,18,20,.94), rgba(10,8,9,.86));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.04),
+        0 20px 44px rgba(0,0,0,.20);
+      overflow:hidden;
+    }
+
+    .work-media{
+      position:relative;
+      overflow:hidden;
+      border-radius:18px;
+      aspect-ratio:16 / 10;
+      background:#120C0D;
+      border:1px solid rgba(194,160,107,.10);
+    }
+
+    .work-media img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:grayscale(.02) saturate(1.02) contrast(1.02);
+    }
+
+    .work-content{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      text-align:left;
+    }
+
+    .work-content h3{
+      margin-top:12px;
+      font-family:'Cinzel',serif;
+      font-size:28px;
+      line-height:1.15;
+      color:#FEE6BE;
+    }
+
+    .work-content p{
+      margin-top:14px;
+      max-width:520px;
+      color:var(--text-soft);
+      font-size:14px;
+      line-height:1.9;
+    }
+
+    .work-actions{
+      margin-top:18px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .work-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      padding:0 18px;
+      border:1px solid #C2A06B;
+      border-radius:999px;
+      text-decoration:none;
+      font-family:'Cinzel',serif;
+      font-size:12px;
+      letter-spacing:2.5px;
+      color:#E9D8BA;
+      background:
+        linear-gradient(180deg, rgba(194,160,107,.08), rgba(194,160,107,.02));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+      transition:background .16s ease, color .16s ease, border-color .16s ease, transform .16s ease;
+    }
+
+    .work-btn:hover{
+      background:linear-gradient(180deg, #E8DABC 0%, #C2A06B 100%);
+      color:#110B0C;
+      border-color:#E8DABC;
+      transform:translateY(-1px);
+    }
+
+    .works-cta{
+      margin-top:30px;
+      padding:26px;
+      border-radius:22px;
+      border:1px solid rgba(194,160,107,.17);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,0) 18%),
+        linear-gradient(to right, rgba(34,18,21,.94), rgba(12,9,10,.84));
+      text-align:center;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.04),
+        0 18px 46px rgba(0,0,0,.20);
+    }
+
+    .works-cta h4{
+      font-family:'Cinzel',serif;
+      font-size:24px;
+      letter-spacing:1px;
+      color:#FEE6BE;
+    }
+
+    .works-cta p{
+      margin-top:12px;
+      color:var(--text-soft);
+      font-size:14px;
+      line-height:1.9;
+      max-width:680px;
+      margin-inline:auto;
+    }
+
+    .works-cta .work-btn{
+      margin-top:18px;
+    }
+
+    @media (max-width: 980px){
+  .nav-links{
+    gap:clamp(2px, .35vw, 6px);
+  }
+
+  .nav-links a{
+    font-size:clamp(10px, 1.2vw, 13px);
+    letter-spacing:clamp(.35px, .12vw, 1.4px);
+    padding:0 clamp(3px, .45vw, 8px);
+  }
+
+      .subtitle{
+        letter-spacing:7px;
+      }
+
+      .about-grid{
+        grid-template-columns:1fr;
+      }
+
+      .services-stack{
+        grid-template-columns:1fr;
+      }
+
+      .work-card{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 768px){
+  html,body{
+    overflow:hidden;
+  }
+
+  .navbar{
+        padding:
+          calc(15px + env(safe-area-inset-top, 0px))
+          max(10px, env(safe-area-inset-right, 0px) + 10px)
+          12px
+          max(10px, env(safe-area-inset-left, 0px) + 10px);
+        background:rgba(10,8,9,.95);
+      }
+
+      .nav-shell{
+  gap:4px;
+}
+
+      .nav-links{
+  gap:2px;
+  padding:4px 4px;
+}
+
+      .lang-toggle{
+  flex:0 0 auto;
+  min-height:32px;
+  padding:0 8px;
+  font-size:8px;
+  letter-spacing:.8px;
+}
+
+      .nav-links a{
+  min-height:30px;
+  padding:0 clamp(2px, .7vw, 5px);
+  font-size:clamp(9px, 2.2vw, 12px);
+  letter-spacing:.5px;
+}
+
+      .nav-links a span{
+        transition:transform .24s ease;
+      }
+
+      .nav-links a:hover span,
+      .nav-links a.active span{
+        transform:scale(1.05) translateZ(0);
+        text-shadow:none;
+      }
+
+      .nav-links a::after{
+        left:10px;
+        right:10px;
+        bottom:3px;
+      }
+
+      section{
+        transition:opacity .22s ease, visibility 0s linear .22s;
+      }
+
+      section::after{
+        transition:opacity .28s ease, transform .38s ease;
+      }
+
+      .title{
+        font-size:clamp(38px, 12vw, 72px);
+      }
+
+      .subtitle{
+        letter-spacing:4px;
+        font-size:11px;
+      }
+
+      .section-scroll{
+        width:calc(100% + 20px);
+        margin-right:-20px;
+        padding:calc(var(--nav-offset) + 18px) max(18px, env(safe-area-inset-right, 0px) + 18px) 96px max(16px, env(safe-area-inset-left, 0px) + 16px);
+      }
+
+      .scroll-ui{
+        right:9px;
+        top:108px;
+        bottom:22px;
+      }
+
+      .section-heading{
+        font-size:clamp(28px, 9vw, 44px);
+      }
+
+      .section-reveal{
+        opacity:0;
+        transform:translateY(6px);
+        transition:
+          opacity .18s ease,
+          transform .2s ease;
+      }
+
+      section.active .section-reveal{
+        opacity:1;
+        transform:translateY(0);
+      }
+
+      section.active .delay-1,
+      section.active .delay-2,
+      section.active .delay-3,
+      section.active .delay-4{
+        transition-delay:0s;
+      }
+
+      .about-panel{
+        padding:32px 24px;
+      }
+
+      .about-copy{
+        font-size:14px;
+        line-height:1.88;
+      }
+
+      .service-card{
+        padding:30px 24px;
+      }
+
+      .service-card h3{
+        font-size:22px;
+      }
+
+      .work-card{
+        padding:16px;
+        gap:20px;
+      }
+
+      .work-content h3{
+        font-size:24px;
+      }
+
+      .work-content,
+      .work-actions{
+        align-items:flex-start;
+      }
+
+      .works-cta{
+        padding:22px 18px;
+      }
+    }
+
+    @media (max-width: 767px){
+      .hero-content,
+      .hero-content > *{
+        animation:none;
+      }
+
+      .hero-content{
+        opacity:0;
+        transform:scale(.985) translateY(20px) translateZ(0);
+        will-change:transform, opacity;
+        filter:none;
+      }
+
+      .hero-content.is-mobile-intro{
+        animation:heroRevealMobile .9s cubic-bezier(.22,.61,.36,1) forwards;
+      }
+
+      .hero-content.is-mobile-intro > *{
+        opacity:0;
+        transform:translateY(12px);
+        animation:heroItemRevealMobile .65s cubic-bezier(.22,.61,.36,1) forwards;
+      }
+
+      .hero-content.is-mobile-intro .title{
+        animation-delay:.28s;
+      }
+
+      .hero-content.is-mobile-intro .subtitle{
+        animation-delay:.42s;
+      }
+
+      .section-reveal,
+      .work-btn,
+      .nav-links a::after{
+        animation:none !important;
+      }
+
+      .scroll-ui{
+        display:none;
+      }
+
+      .work-media img{
+        filter:none;
+      }
+    }
+
+    @keyframes heroRevealMobile{
+      0%{
+        opacity:0;
+        transform:scale(.985) translateY(20px) translateZ(0);
+      }
+      100%{
+        opacity:1;
+        transform:scale(1) translateY(0) translateZ(0);
+      }
+    }
+
+    @keyframes heroItemRevealMobile{
+      0%{
+        opacity:0;
+        transform:translateY(12px);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @media (max-width: 560px){
+      .hero-shell{
+        width:min(100%, calc(100% - 28px));
+      }
+
+      .section-scroll{
+        padding:calc(var(--nav-offset) + 14px) max(16px, env(safe-area-inset-right, 0px) + 16px) 96px max(14px, env(safe-area-inset-left, 0px) + 14px);
+      }
+
+      .work-content p,
+      .about-copy{
+        font-size:13.5px;
+      }
+
+      .scope-list{
+        gap:10px;
+      }
+
+      .scope-list span{
+        font-size:11px;
+      }
+
+      .value-item{
+        font-size:13px;
+      }
+    }
+
+
+@media (max-width: 420px){
+  .nav-shell{
+    gap:3px;
+  }
+
+  .nav-links{
+    gap:1px;
+    padding:3px 3px;
+  }
+
+  .nav-links a{
+    min-height:28px;
+    padding:0 2px;
+    font-size:clamp(8px, 2.4vw, 10px);
+    letter-spacing:.35px;
+  }
+
+  .lang-toggle{
+    min-height:28px;
+    padding:0 6px;
+    font-size:7px;
+    letter-spacing:.5px;
+  }
+}
+
+    @media (prefers-reduced-motion: reduce){
+      *{
+        scroll-behavior:auto !important;
+      }
+
+      .hero-content,
+      .section-reveal,
+      section,
+      .nav-links a,
+      .work-btn{
+        animation:none !important;
+        transition:none !important;
+      }
+    }
+  
+/* --- Typography improvements --- */
+
+
+
+
+
+
+
+/* --- Premium spacing + narrative blocks --- */
+.about-signature,
+.section-kicker{
+  text-align:center;
+}
+
+.philosophy-block{
+  margin-top:34px;
+  padding:40px 34px;
+  border:1px solid rgba(194,160,107,.15);
+  border-radius:22px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,0) 18%),
+    linear-gradient(to right, rgba(35,20,23,.92), rgba(12,9,10,.84));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.04),
+    0 18px 40px rgba(0,0,0,.18);
+  text-align:center;
+}
+
+.philosophy-title{
+  font-family:'Cinzel',serif;
+  font-size:12px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:#D7BA8D;
+}
+
+.philosophy-quote{
+  margin:18px auto 0;
+  max-width:24ch;
+  font-family:'Cinzel',serif;
+  font-size:clamp(24px, 3vw, 38px);
+  line-height:1.28;
+  color:#FEE6BE;
+  text-wrap:balance;
+}
+
+.philosophy-copy{
+  margin:16px auto 0;
+  max-width:58ch;
+  color:var(--text-soft);
+  font-size:14px;
+  line-height:1.9;
+  text-wrap:pretty;
+}
+
+.process-index{
+  display:block;
+  margin-bottom:14px;
+  font-family:'Cinzel',serif;
+  font-size:12px;
+  letter-spacing:3px;
+  color:#C1A277;
+  text-transform:uppercase;
+}
+
+.work-eyebrow{
+  font-family:'Cinzel',serif;
+  font-size:11px;
+  letter-spacing:2.2px;
+  color:#C1A277;
+  text-transform:uppercase;
+}
+
+.work-meta{
+  margin-top:14px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 14px;
+}
+
+.work-meta span{
+  padding:9px 12px;
+  border:1px solid rgba(194,160,107,.16);
+  border-radius:999px;
+  color:#DAC6A5;
+  font-size:11px;
+  letter-spacing:.8px;
+  background:linear-gradient(180deg, rgba(96,52,48,.14), rgba(18,11,13,.20));
+}
+
+@media (max-width: 980px){
+  .services-stack{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width: 768px){
+  .philosophy-block{
+    padding:30px 24px;
+  }
+
+  .philosophy-quote{
+    max-width:100%;
+    font-size:clamp(22px, 8vw, 32px);
+  }
+}
+
+
+</style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-shell">
+      <ul class="nav-links">
+        <li><a href="#home" class="active"><span data-i18n="nav.home">INÍCIO</span></a></li>
+        <li><a href="#about"><span data-i18n="nav.about">SOBRE</span></a></li>
+        <li><a href="#services"><span data-i18n="nav.services">SERVIÇOS</span></a></li>
+        <li><a href="#works"><span data-i18n="nav.works">ÚLTIMOS TRABALHOS</span></a></li>
+      
+</ul>
+<button
+        class="lang-toggle"
+        id="langToggle"
+        type="button"
+        aria-label="Alternar idioma"
+        data-lang="pt"
+      >
+        <span class="lang-toggle__option lang-toggle__option--pt">PT</span>
+        <span class="lang-toggle__divider" aria-hidden="true"></span>
+        <span class="lang-toggle__option lang-toggle__option--en">EN</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero active" id="home" aria-label="Início">
+    <div class="hero-shell">
+      <div class="hero-content">
+        <h1 class="title">GUSTHAF VERSAILLES</h1>
+        <p class="subtitle" data-i18n="hero.subtitle">DESENVOLVEDOR WEB DE LUXO</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about" aria-label="Sobre">
+    <div class="section-scroll">
+      <div class="section-frame">
+        <div class="section-reveal delay-1">
+          <h2 class="section-heading" data-i18n="about.heading">Eu crio experiências digitais moldadas por atmosfera, precisão e identidade.</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-panel section-reveal delay-2">
+            <p class="about-copy">
+              <span data-i18n="about.p1">Sou Gusthaf Versailles — um desenvolvedor web focado em criar ambientes digitais imersivos onde design, movimento e estrutura coexistem com intenção.</span>
+            </p>
+
+            <p class="about-copy">
+              <span data-i18n="about.p2">Meu trabalho não é sobre excesso. É sobre presença, controle e um ritmo visual que faz uma marca parecer consolidada desde a primeira interação.</span>
+            </p>
+
+            <div class="about-signature">GUSTHAF VERSAILLES</div>
+          </div>
+
+          <div class="about-panel section-reveal delay-3">
+            <span class="section-kicker" data-i18n="about.principles">Princípios</span>
+            <div class="about-values">
+              <div class="value-item" data-i18n="about.value1">Precisão acima da velocidade</div>
+              <div class="value-item" data-i18n="about.value2">Atmosfera acima do excesso</div>
+              <div class="value-item" data-i18n="about.value3">Identidade acima de tendências</div>
+              <div class="value-item" data-i18n="about.value4">Atemporal acima do temporário</div>
+              <div class="value-item" data-i18n="about.value5">Presença acima do ruído</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="philosophy-block section-reveal delay-4">
+          <div class="philosophy-title" data-i18n="about.philosophyTitle">Filosofia</div>
+          <p class="philosophy-quote">
+            <span data-i18n="about.quote">Luxo não é decoração. É contenção, ritmo e clareza.</span>
+          </p>
+          <p class="philosophy-copy">
+            <span data-i18n="about.philosophyCopy">Cada interface deve parecer intencional, composta e inconfundivelmente presente — desenhada para prender atenção pela atmosfera, não pelo excesso.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-ui is-hidden" aria-hidden="true">
+      <div class="scroll-thumb"></div>
+    </div>
+  </section>
+
+  <section class="services" id="services" aria-label="Serviços">
+    <div class="section-scroll">
+      <div class="section-frame">
+        <div class="section-reveal delay-1">
+          <h2 class="section-heading" data-i18n="services.heading">Um processo estruturado para construir presença digital.</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="services-stack">
+          <article class="service-card section-reveal delay-1">
+            <span class="process-index" data-i18n="services.card1.index">01 — Estratégia</span>
+            <h3 data-i18n="services.card1.title">Posicionando a presença</h3>
+            <div class="service-tags" data-i18n="services.card1.tags">Contexto da marca • Clareza de público • Direção</div>
+            <p class="service-main">
+              <span data-i18n="services.card1.main">Todo projeto começa entendendo como a marca deve ser percebida — não apenas como ela deve parecer.</span>
+            </p>
+            <p class="service-sub">
+              <span data-i18n="services.card1.sub">Tom, referências e território visual são definidos antes da interface ganhar forma.</span>
+            </p>
+          </article>
+
+          <article class="service-card section-reveal delay-2">
+            <span class="process-index" data-i18n="services.card2.index">02 — Arquitetura de identidade</span>
+            <h3 data-i18n="services.card2.title">Construindo o sistema visual</h3>
+            <div class="service-tags" data-i18n="services.card2.tags">Tipografia • Ritmo de layout • Presença de marca</div>
+            <p class="service-main">
+              <span data-i18n="services.card2.main">Eu traduzo a presença da marca em estrutura, composição e hierarquia para que a experiência pareça imediatamente distinta.</span>
+            </p>
+            <p class="service-sub">
+              <span data-i18n="services.card2.sub">É aqui que a elegância se torna sistema — não ornamento.</span>
+            </p>
+          </article>
+
+          <article class="service-card section-reveal delay-3">
+            <span class="process-index" data-i18n="services.card3.index">03 — Ambiente digital</span>
+            <h3 data-i18n="services.card3.title">Desenhando a interface</h3>
+            <div class="service-tags" data-i18n="services.card3.tags">Web design • Desenvolvimento • Execução responsiva</div>
+            <p class="service-main">
+              <span data-i18n="services.card3.main">As telas são moldadas com precisão e contenção, equilibrando clareza editorial com performance técnica.</span>
+            </p>
+            <p class="service-sub">
+              <span data-i18n="services.card3.sub">O resultado é um ambiente digital que parece refinado em qualquer dispositivo.</span>
+            </p>
+          </article>
+
+          <article class="service-card section-reveal delay-4">
+            <span class="process-index" data-i18n="services.card4.index">04 — Movimento & presença</span>
+            <h3 data-i18n="services.card4.title">Refinando a percepção final</h3>
+            <div class="service-tags" data-i18n="services.card4.tags">Microinterações • Movimento no scroll • UI cinematográfica</div>
+            <p class="service-main">
+              <span data-i18n="services.card4.main">O movimento é usado com intenção para controlar o ritmo, guiar a atenção e elevar a atmosfera geral da marca.</span>
+            </p>
+            <p class="service-sub">
+              <span data-i18n="services.card4.sub">Um design de interação sutil transforma navegação em presença.</span>
+            </p>
+          </article>
+        </div>
+
+        <div class="scope-block section-reveal delay-4">
+          <div class="project-scope" data-i18n="services.scopeTitle">ESCOPO DE PROJETO</div>
+          <div class="scope-list">
+            <span data-i18n="services.scope1">Websites one page</span>
+            <span data-i18n="services.scope2">Landing pages</span>
+            <span data-i18n="services.scope3">Portfólios de marca</span>
+            <span data-i18n="services.scope4">Plataformas institucionais</span>
+            <span data-i18n="services.scope5">Experiências digitais completas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-ui is-hidden" aria-hidden="true">
+      <div class="scroll-thumb"></div>
+    </div>
+  </section>
+
+  <section class="works" id="works" aria-label="Últimos trabalhos">
+    <div class="section-scroll">
+      <div class="section-frame">
+        <div class="section-reveal delay-1">
+          <h2 class="section-heading" data-i18n="works.heading">Ambientes digitais recentes com uma cadência visual premium.</h2>
+          <div class="section-divider"></div>
+        </div>
+
+        <div class="works-list">
+          <article class="work-card section-reveal delay-1">
+            <div class="work-media">
+              <img src="project1.jpg" loading="lazy" decoding="async" />
+            </div>
+            <div class="work-content">
+              <div class="work-eyebrow" data-i18n="works.card1.eyebrow">Plataforma de exploração tipográfica</div>
+              <h3>Elegant Fonts</h3>
+              <p>
+                <span data-i18n="works.card1.copy">Uma plataforma digital de ferramentas com foco em luxo, criada com presença editorial refinada, movimento contido e uma cadência visual clara para fazer a interface parecer premium de imediato.</span>
+              </p>
+              <div class="work-meta">
+                <span data-i18n="works.card1.meta1">Ano — 2025</span>
+                <span data-i18n="works.card1.meta2">Papel — Design / Desenvolvimento</span>
+              </div>
+              <div class="work-actions">
+                <a href="https://elegantfonts.vercel.app" class="work-btn" data-i18n="works.card1.button">Ver projeto</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-card section-reveal delay-2">
+            <div class="work-media">
+              <img src="project2.jpg" loading="lazy" decoding="async" />
+            </div>
+            <div class="work-content">
+              <div class="work-eyebrow" data-i18n="works.card2.eyebrow">Conceito de site institucional</div>
+              <h3>Atelier Aureum</h3>
+              <p>
+                <span data-i18n="works.card2.copy">Uma experiência institucional construída com contenção visual, espaçamento preciso e uma atmosfera composta para reforçar credibilidade desde a primeira tela.</span>
+              </p>
+              <div class="work-meta">
+                <span data-i18n="works.card1.meta1">Ano — 2025</span>
+                <span data-i18n="works.card2.meta2">Papel — Direção de arte / UI</span>
+              </div>
+              <div class="work-actions">
+                <a href="#" class="work-btn" data-i18n="works.card2.button">Ver case</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="work-card section-reveal delay-3">
+            <div class="work-media">
+              <img src="project3.jpg" loading="lazy" decoding="async" />
+            </div>
+            <div class="work-content">
+              <div class="work-eyebrow" data-i18n="works.card3.eyebrow">Experiência de landing page cinematográfica</div>
+              <h3>Obsidian House</h3>
+              <p>
+                <span data-i18n="works.card3.copy">Um conceito focado em atmosfera, ritmo e profundidade emocional — usando movimento e ritmo visual para tornar a interação imersiva e memorável.</span>
+              </p>
+              <div class="work-meta">
+                <span data-i18n="works.card1.meta1">Ano — 2025</span>
+                <span data-i18n="works.card3.meta2">Papel — Conceito / Direção de movimento</span>
+              </div>
+              <div class="work-actions">
+                <a href="#" class="work-btn" data-i18n="works.card2.button">Ver case</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="works-cta section-reveal delay-4">
+          <h4 data-i18n="works.cta.title">Comissões selecionadas apenas.</h4>
+          <p>
+            <span data-i18n="works.cta.copy">Se você quer uma presença digital com autoridade visual mais forte, é aqui que a conversa começa.</span>
+          </p>
+          <a href="mailto:contact@gusthafversailles.com" class="work-btn" data-i18n="works.cta.button">Iniciar projeto</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-ui is-hidden" aria-hidden="true">
+      <div class="scroll-thumb"></div>
+    </div>
+  </section>
+
+  <script>
+    const translations = {
+      pt: {
+        documentLang: "pt-BR",
+        metaDescription: "Desenvolvedor web de luxo criando ambientes digitais imersivos com precisão, atmosfera e identidade.",
+        aria: {
+          home: "Início",
+          about: "Sobre",
+          services: "Serviços",
+          works: "Últimos trabalhos",
+          langToggle: "Mudar idioma para inglês"
+        },
+        nav: {
+          home: "INÍCIO",
+          about: "SOBRE",
+          services: "SERVIÇOS",
+          works: "ÚLTIMOS TRABALHOS"
+        },
+        lang: { label: "PT", switchTo: "EN" },
+        hero: { subtitle: "DESENVOLVEDOR WEB DE LUXO" },
+        about: {
+          heading: "Eu crio experiências digitais moldadas por atmosfera, precisão e identidade.",
+          p1: "Sou Gusthaf Versailles — um desenvolvedor web focado em criar ambientes digitais imersivos onde design, movimento e estrutura coexistem com intenção.",
+          p2: "Meu trabalho não é sobre excesso. É sobre presença, controle e um ritmo visual que faz uma marca parecer consolidada desde a primeira interação.",
+          principles: "Princípios",
+          value1: "Precisão acima da velocidade",
+          value2: "Atmosfera acima do excesso",
+          value3: "Identidade acima de tendências",
+          value4: "Atemporal acima do temporário",
+          value5: "Presença acima do ruído",
+          philosophyTitle: "Filosofia",
+          quote: "Luxo não é decoração. É contenção, ritmo e clareza.",
+          philosophyCopy: "Cada interface deve parecer intencional, composta e inconfundivelmente presente — desenhada para prender atenção pela atmosfera, não pelo excesso."
+        },
+        services: {
+          heading: "Um processo estruturado para construir presença digital.",
+          card1: {
+            index: "01 — Estratégia",
+            title: "Posicionando a presença",
+            tags: "Contexto da marca • Clareza de público • Direção",
+            main: "Todo projeto começa entendendo como a marca deve ser percebida — não apenas como ela deve parecer.",
+            sub: "Tom, referências e território visual são definidos antes da interface ganhar forma."
+          },
+          card2: {
+            index: "02 — Arquitetura de identidade",
+            title: "Construindo o sistema visual",
+            tags: "Tipografia • Ritmo de layout • Presença de marca",
+            main: "Eu traduzo a presença da marca em estrutura, composição e hierarquia para que a experiência pareça imediatamente distinta.",
+            sub: "É aqui que a elegância se torna sistema — não ornamento."
+          },
+          card3: {
+            index: "03 — Ambiente digital",
+            title: "Desenhando a interface",
+            tags: "Web design • Desenvolvimento • Execução responsiva",
+            main: "As telas são moldadas com precisão e contenção, equilibrando clareza editorial com performance técnica.",
+            sub: "O resultado é um ambiente digital que parece refinado em qualquer dispositivo."
+          },
+          card4: {
+            index: "04 — Movimento & presença",
+            title: "Refinando a percepção final",
+            tags: "Microinterações • Movimento no scroll • UI cinematográfica",
+            main: "O movimento é usado com intenção para controlar o ritmo, guiar a atenção e elevar a atmosfera geral da marca.",
+            sub: "Um design de interação sutil transforma navegação em presença."
+          },
+          scopeTitle: "ESCOPO DE PROJETO",
+          scope1: "Websites one page",
+          scope2: "Landing pages",
+          scope3: "Portfólios de marca",
+          scope4: "Plataformas institucionais",
+          scope5: "Experiências digitais completas"
+        },
+        works: {
+          heading: "Ambientes digitais recentes com uma cadência visual premium.",
+          card1: {
+            eyebrow: "Plataforma de exploração tipográfica",
+            copy: "Uma plataforma digital de ferramentas com foco em luxo, criada com presença editorial refinada, movimento contido e uma cadência visual clara para fazer a interface parecer premium de imediato.",
+            meta1: "Ano — 2025",
+            meta2: "Papel — Design / Desenvolvimento",
+            button: "Ver projeto"
+          },
+          card2: {
+            eyebrow: "Conceito de site institucional",
+            copy: "Uma experiência institucional construída com contenção visual, espaçamento preciso e uma atmosfera composta para reforçar credibilidade desde a primeira tela.",
+            meta1: "Ano — 2025",
+            meta2: "Papel — Direção de arte / UI",
+            button: "Ver case"
+          },
+          card3: {
+            eyebrow: "Experiência de landing page cinematográfica",
+            copy: "Um conceito focado em atmosfera, ritmo e profundidade emocional — usando movimento e ritmo visual para tornar a interação imersiva e memorável.",
+            meta1: "Ano — 2025",
+            meta2: "Papel — Conceito / Direção de movimento",
+            button: "Ver case"
+          },
+          cta: {
+            title: "Comissões selecionadas apenas.",
+            copy: "Se você quer uma presença digital com autoridade visual mais forte, é aqui que a conversa começa.",
+            button: "Iniciar projeto"
+          }
+        }
+      },
+      en: {
+        documentLang: "en",
+        metaDescription: "Luxury web developer crafting immersive digital environments with precision, atmosphere and identity.",
+        aria: {
+          home: "Home",
+          about: "About",
+          services: "Services",
+          works: "Last works",
+          langToggle: "Switch language to Portuguese"
+        },
+        nav: {
+          home: "HOME",
+          about: "ABOUT",
+          services: "SERVICES",
+          works: "LAST WORKS"
+        },
+        lang: { label: "EN", switchTo: "PT" },
+        hero: { subtitle: "LUXURY WEB DEVELOPER" },
+        about: {
+          heading: "I design digital experiences shaped by atmosphere, precision and identity.",
+          p1: "I’m Gusthaf Versailles — a web developer focused on building immersive digital environments where design, motion and structure coexist with intention.",
+          p2: "My work is not about excess. It is about presence, control and a visual rhythm that makes a brand feel established from the first interaction.",
+          principles: "Principles",
+          value1: "Precision over speed",
+          value2: "Atmosphere over excess",
+          value3: "Identity over trends",
+          value4: "Timeless over temporary",
+          value5: "Presence over noise",
+          philosophyTitle: "Philosophy",
+          quote: "Luxury is not decoration. It is restraint, rhythm and clarity.",
+          philosophyCopy: "Every interface should feel intentional, composed and unmistakably present — designed to hold attention through atmosphere, not excess."
+        },
+        services: {
+          heading: "A structured process for building digital presence.",
+          card1: {
+            index: "01 — Strategy",
+            title: "Positioning the presence",
+            tags: "Brand Context • Audience Clarity • Direction",
+            main: "Every project begins by understanding how the brand should be perceived — not only how it should look.",
+            sub: "Tone, reference points and visual territory are defined before the interface takes form."
+          },
+          card2: {
+            index: "02 — Identity Architecture",
+            title: "Building the visual system",
+            tags: "Typography • Layout Rhythm • Brand Presence",
+            main: "I translate brand presence into structure, composition and hierarchy so the experience feels immediately distinctive.",
+            sub: "This is where elegance becomes system — not ornament."
+          },
+          card3: {
+            index: "03 — Digital Environment",
+            title: "Designing the interface",
+            tags: "Web Design • Development • Responsive Craft",
+            main: "Screens are shaped with precision and restraint, balancing editorial clarity with technical performance.",
+            sub: "The result is a digital environment that feels composed on every device."
+          },
+          card4: {
+            index: "04 — Motion & Presence",
+            title: "Refining the final perception",
+            tags: "Micro-Interactions • Scroll Motion • Cinematic UI",
+            main: "Motion is used with intention to control pace, guide attention and elevate the overall atmosphere of the brand.",
+            sub: "Subtle interaction design transforms navigation into presence."
+          },
+          scopeTitle: "PROJECT SCOPE",
+          scope1: "Single-Page Websites",
+          scope2: "Landing Pages",
+          scope3: "Brand Portfolios",
+          scope4: "Institutional Platforms",
+          scope5: "Full Digital Experiences"
+        },
+        works: {
+          heading: "Recent digital environments with a premium visual cadence.",
+          card1: {
+            eyebrow: "Typography exploration platform",
+            copy: "A luxury-focused digital tool platform crafted with refined editorial presence, restrained motion and a clear visual cadence designed to make the interface feel immediately premium.",
+            meta1: "Year — 2025",
+            meta2: "Role — Design / Development",
+            button: "View Project"
+          },
+          card2: {
+            eyebrow: "Institutional website concept",
+            copy: "An institutional experience built with visual restraint, precise spacing and a composed atmosphere intended to reinforce credibility from the first screen.",
+            meta1: "Year — 2025",
+            meta2: "Role — Art Direction / UI",
+            button: "View Case"
+          },
+          card3: {
+            eyebrow: "Cinematic landing experience",
+            copy: "A concept focused on atmosphere, pacing and emotional depth — using motion and visual rhythm to make the interaction feel immersive and memorable.",
+            meta1: "Year — 2025",
+            meta2: "Role — Concept / Motion Direction",
+            button: "View Case"
+          },
+          cta: {
+            title: "Selected commissions only.",
+            copy: "If you want a digital presence with stronger visual authority, this is where the conversation begins.",
+            button: "Start a Project"
+          }
+        }
+      }
+    };
+
+    const sections = Array.from(document.querySelectorAll("section"));
+    const navLinks = Array.from(document.querySelectorAll(".nav-links a"));
+    const heroSection = document.getElementById("home");
+    const langToggle = document.getElementById("langToggle");
+    const i18nNodes = Array.from(document.querySelectorAll("[data-i18n]"));
+    const metaDescription = document.querySelector('meta[name="description"]');
+    const isMobileViewport = window.matchMedia("(max-width: 767px)");
+    let activeSection = document.querySelector("section.active") || heroSection;
+    let resizeTimer = null;
+    let navigationLocked = false;
+    let heroHasPlayed = false;
+    let currentLanguage = "pt";
+
+    function updateNavbarOffset(){
+      const navbar = document.querySelector(".navbar");
+      if (!navbar) return;
+      const navHeight = Math.ceil(navbar.getBoundingClientRect().height);
+      document.documentElement.style.setProperty("--nav-offset", `${navHeight}px`);
+    }
+
+
+    function getTranslationValue(path, locale){
+      return path.split(".").reduce((acc, key) => acc?.[key], translations[locale]);
+    }
+
+    function applyLanguage(locale){
+      const selectedLocale = translations[locale] ? locale : "pt";
+      currentLanguage = selectedLocale;
+      document.documentElement.lang = translations[selectedLocale].documentLang;
+      if (metaDescription) {
+        metaDescription.setAttribute("content", translations[selectedLocale].metaDescription);
+      }
+
+      i18nNodes.forEach((node) => {
+        const key = node.dataset.i18n;
+        const value = getTranslationValue(key, selectedLocale);
+        if (typeof value === "string") {
+          node.textContent = value;
+        }
+      });
+
+      const labels = translations[selectedLocale].aria;
+      heroSection?.setAttribute("aria-label", labels.home);
+      document.getElementById("about")?.setAttribute("aria-label", labels.about);
+      document.getElementById("services")?.setAttribute("aria-label", labels.services);
+      document.getElementById("works")?.setAttribute("aria-label", labels.works);
+
+      if (langToggle) {
+        langToggle.dataset.lang = selectedLocale;
+        langToggle.setAttribute("aria-label", labels.langToggle);
+      }
+    }
+
+    if (langToggle) {
+      langToggle.addEventListener("click", () => {
+        const nextLanguage = currentLanguage === "pt" ? "en" : "pt";
+        applyLanguage(nextLanguage);
+        updateNavbarOffset();
+      });
+    }
+
+
+    function playHeroIntro(force = false){
+      if (!heroSection) return;
+
+      const heroContent = heroSection.querySelector(".hero-content");
+      if (!heroContent) return;
+      if (heroHasPlayed && !force) return;
+
+      const children = heroContent.querySelectorAll("*");
+
+      if (isMobileViewport.matches) {
+        heroContent.classList.remove("is-mobile-intro");
+        children.forEach((item) => {
+          item.style.animation = "none";
+        });
+
+        void heroContent.offsetWidth;
+
+        children.forEach((item) => {
+          item.style.animation = "";
+        });
+
+        heroContent.classList.add("is-mobile-intro");
+        heroHasPlayed = true;
+        return;
+      }
+
+      heroContent.style.animation = "none";
+      children.forEach((item) => {
+        item.style.animation = "none";
+      });
+
+      requestAnimationFrame(() => {
+        heroContent.style.animation = "";
+        children.forEach((item) => {
+          item.style.animation = "";
+        });
+        heroHasPlayed = true;
+      });
+    }
+
+    function sectionNeedsScrollbar(section){
+      const scroller = section?.querySelector(".section-scroll");
+      if (!scroller) return false;
+      return scroller.scrollHeight - scroller.clientHeight > 6;
+    }
+
+    function updateScrollbar(section){
+      if (!section || isMobileViewport.matches) return;
+
+      const scroller = section.querySelector(".section-scroll");
+      const ui = section.querySelector(".scroll-ui");
+      const thumb = section.querySelector(".scroll-thumb");
+
+      if (!scroller || !ui || !thumb) return;
+
+      if (!sectionNeedsScrollbar(section)) {
+        ui.classList.add("is-hidden");
+        thumb.style.transform = "translate3d(0,0,0)";
+        return;
+      }
+
+      ui.classList.remove("is-hidden");
+
+      const maxScroll = scroller.scrollHeight - scroller.clientHeight;
+      const trackHeight = ui.clientHeight;
+      const ratio = scroller.clientHeight / scroller.scrollHeight;
+      const thumbHeight = Math.max(trackHeight * ratio, 40);
+      const maxThumbY = trackHeight - thumbHeight;
+      const progress = maxScroll > 0 ? scroller.scrollTop / maxScroll : 0;
+      const y = maxThumbY * progress;
+
+      thumb.style.height = `${thumbHeight}px`;
+      thumb.style.transform = `translate3d(0, ${y}px, 0)`;
+    }
+
+    function updateAllScrollbars(){
+      if (isMobileViewport.matches) return;
+      sections.forEach(updateScrollbar);
+    }
+
+    function setActiveLink(id){
+      navLinks.forEach((link) => {
+        const isActive = link.getAttribute("href") === `#${id}`;
+        link.classList.toggle("active", isActive);
+        link.setAttribute("aria-current", isActive ? "page" : "false");
+      });
+    }
+
+    function resetReveals(target){
+      target.querySelectorAll('.section-reveal').forEach((el) => {
+        el.style.transition = 'none';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(12px) translateZ(0)';
+      });
+
+      requestAnimationFrame(() => {
+        target.querySelectorAll('.section-reveal').forEach((el) => {
+          el.style.transition = '';
+          el.style.opacity = '';
+          el.style.transform = '';
+        });
+      });
+    }
+
+    function openSection(id, options = {}){
+      const target = document.getElementById(id) || heroSection;
+      if (!target || target === activeSection || navigationLocked) return;
+
+      navigationLocked = true;
+      const previousSection = activeSection;
+
+      if (previousSection) {
+        previousSection.classList.remove("active");
+        const previousScroller = previousSection.querySelector(".section-scroll");
+        if (previousScroller) previousScroller.scrollTop = 0;
+      }
+
+      target.classList.add("active");
+      activeSection = target;
+      setActiveLink(target.id);
+      resetReveals(target);
+
+      if (target.id === "home") {
+        playHeroIntro(options.replayHero === true);
+      }
+
+      requestAnimationFrame(() => {
+        updateScrollbar(target);
+      });
+
+      window.setTimeout(() => {
+        navigationLocked = false;
+      }, isMobileViewport.matches ? 240 : 420);
+    }
+
+    document.querySelectorAll(".section-scroll").forEach((scroller) => {
+      const section = scroller.closest("section");
+      let ticking = false;
+
+      scroller.addEventListener("scroll", () => {
+        if (isMobileViewport.matches || ticking) return;
+        ticking = true;
+
+        requestAnimationFrame(() => {
+          updateScrollbar(section);
+          ticking = false;
+        });
+      }, { passive:true });
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const id = link.getAttribute("href").replace("#", "");
+        history.replaceState(null, "", `#${id}`);
+        openSection(id, { replayHero: true });
+      });
+    });
+
+    window.addEventListener("hashchange", () => {
+      const id = (location.hash || "#home").replace("#", "");
+      openSection(id, { replayHero: false });
+    });
+
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        updateNavbarOffset();
+        updateAllScrollbars();
+      }, 90);
+    }, { passive: true });
+
+    window.addEventListener("orientationchange", () => {
+      setTimeout(updateAllScrollbars, 140);
+    }, { passive: true });
+
+    if (langToggle) {
+      }
+
+    window.addEventListener("load", () => {
+      const initial = (location.hash || "#home").replace("#", "");
+      const target = document.getElementById(initial) || heroSection;
+
+      applyLanguage("pt");
+      updateNavbarOffset();
+      sections.forEach((section) => section.classList.remove("active"));
+      target.classList.add("active");
+      activeSection = target;
+      setActiveLink(target.id);
+      updateAllScrollbars();
+      setTimeout(updateAllScrollbars, 120);
+      if (target.id === 'home') {
+        playHeroIntro(true);
+      }
+    });
+</script>
+</body>
+</html>
