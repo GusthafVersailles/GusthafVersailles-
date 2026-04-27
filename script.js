@@ -81,7 +81,7 @@ const translations = {
         copy: 'Ferramenta criada para transformar textos comuns em variações visuais com caracteres unicode, facilitando a criação de nomes, bios e composições tipográficas para uso digital. O projeto foi pensado para oferecer exploração rápida de estilos, pré-visualização imediata e cópia prática.',
         meta1: 'Ano — 2026',
         meta2: 'Papel — UI / Front-end / Lógica de conversão',
-        button: 'Ver projeto',
+        button: 'Ver case',
       },
       card2: {
         eyebrow: 'Ferramenta de análise tipográfica',
